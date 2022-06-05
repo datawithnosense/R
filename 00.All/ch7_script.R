@@ -138,8 +138,8 @@ library(tensorflow)  # tensorflow 라이브러리 불러오기
 install_tensorflow()  # tensorlfow 설치
 
 # 데이터 불러오기
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 
 c_x_train <- c_train[,1:3]  # 훈련용 데이터 셋 만들기
 c_y_train <- c_train[,4]  # 훈련용 라벨 만들기, vector 타입

@@ -3,7 +3,7 @@
 ## Chapter 6-1. 병아리의 성별을 구분할 수 있을까? (로지스틱 회귀)
 
 # 데이터 불러오기
-g <- read.csv("ch6-1.csv", header = TRUE)
+g <- read.csv("ch6-1.csv", header = TRUE, stringsAsFactors = TRUE)
 
 head(g)
 
@@ -56,8 +56,8 @@ ROC(g$pred, g$gender, main = "ROC Curve")
 install.packages("e1071")  # Naive Bayes 수행을 위한 패키지 설치
 library(e1071)
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 str(c_train)
 str(c_test)
 
@@ -82,8 +82,8 @@ confusionMatrix(c_test$pred, c_test$breeds)
 install.packages("DMwR2")  # k-NN 수행을 위한 패키지 설치
 library(DMwR2)
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 
 c_knn3 <- kNN(breeds ~., c_train, c_test, k = 3)
 c_test$pred3 <- c_knn3  # 예측값을 c_test 데이터셋에 pred3열을 만들어서 입력
@@ -104,8 +104,8 @@ confusionMatrix(c_test$pred5, c_test$breeds)
 install.packages("rpart")  # CART 수행을 위한 패키지 설치
 library(rpart)
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 
 
 # 병아리 품종을 종속변수로 나머지 변수를 독립변수로한 학습 실시
@@ -134,8 +134,10 @@ confusionMatrix(c_test$pred, c_test$breeds)
 install.packages("adabag")  # 배깅 및 부스팅 수행을 위한 패키지 설치
 library(adabag)
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)  # 훈련용 데이터셋 불러오기
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)  # 테스트용 데이터셋 불러오기
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)  # 훈련용 데이터셋 불러오기
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)  # 테스트용 데이터셋 불러오기
+
+str(c_train)
 
 c_bag <- bagging(breeds ~., data = c_train, type = "class")
 
@@ -165,8 +167,8 @@ confusionMatrix(c_test$pred, c_test$breeds)
 library(adabag)
 
 ?adabag
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 
 c_boost <- boosting(breeds ~., data = c_train, type = "class")
 c_boost$importance
@@ -187,8 +189,8 @@ confusionMatrix(c_test$pred, c_test$breeds)
 install.packages("randomForest")  # 랜덤포레스트 수행을 위한 패키지 설치
 library(randomForest)
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 
 c_rf <- randomForest(breeds ~., data = c_train, type = "class")
 
@@ -206,8 +208,8 @@ confusionMatrix(c_test$pred, c_test$breeds)
 
 library(e1071)  # 나이브 베이즈에서 사용했던 e1071 패키지 불러오기
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)  # 훈련용 데이터셋 불러오기
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)  # 테스트용 데이터셋 불러오기
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)  # 훈련용 데이터셋 불러오기
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)  # 테스트용 데이터셋 불러오기
 
 # 병아리 품종을 종속변수로 나머지 변수를 독립변수로한 학습 실시
 c_svm <- svm(breeds ~., data = c_train)
@@ -226,8 +228,8 @@ confusionMatrix(c_test$pred, c_test$breeds)
 install.packages("xgboost")
 library(xgboost)
 
-c_train <- read.csv("ch6-2_train.csv", header = TRUE)
-c_test <- read.csv("ch6-2_test.csv", header = TRUE)
+c_train <- read.csv("ch6-2_train.csv", header = TRUE, stringsAsFactors = TRUE)
+c_test <- read.csv("ch6-2_test.csv", header = TRUE, stringsAsFactors = TRUE)
 
 c_x_train <- data.matrix(c_train[,1:3])  # 훈련용 데이터 셋 matrix 타입으로 만들기
 c_y_train <- c_train[,4]  # 훈련용 라벨 만들기, vector 타입
@@ -290,7 +292,7 @@ confusionMatrix(c_y_test_pred_label3, c_y_test)
 
 # K-means Clustering
 
-cl <- read.csv("ch6-3.csv", header = TRUE)  # 데이터 셋 불러오기
+cl <- read.csv("ch6-3.csv", header = TRUE, stringsAsFactors = TRUE)  # 데이터 셋 불러오기
 
 str(cl)  # 데이터 셋 형태 확인
 summary(cl)
